@@ -4,13 +4,17 @@
     <h1>New Post</h1>
     <form method='post' action='/redirect'>
         <label>
-            Title:
+            Title: <br>
+            <br>
             <input type="text" name='slug' />
-        </label><br>
+            <span class="error">{{ error1 }}</span>
+        </label><br><br><br>
         <label>
-            Body:
+            Body:<br>
+            <br>
             <input type="textarea" name='body' />
-        </label>
+            <span class="error">{{ error2 }}</span>
+        </label><br><br><br>
         <input type="submit" value='Add Post' />
     </form>
 

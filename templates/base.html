@@ -1,23 +1,14 @@
 <!doctype html>
 <html>
     <head>
-        <style>
-        input[type=textarea] {
-    width: 75;
-    height: 150px;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    resize: none;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="../static/styles/styles.css">
         <title>{{title}}</title>
     </head>
 <body>
-    <a href = "/blog">Main Blog Page</a>
-    <a href = "/new_post">Add a New Post</a>
+    <h3>
+        <a href = "/blog">Main Blog Page</a>
+        <a href = "/new_post">Add a New Post</a>
+    </h3>
 
     {% block content %}
     {% endblock %}
