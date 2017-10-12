@@ -20,32 +20,55 @@ class Blog(db.Model):
         self.body = body
 
 
-@app.route('/', methods=['POST', 'GET'])
-def index():
+@app.route('/new_post', methods=['POST', 'GET'])
+def new_post():
 
+    #~if request.method == 'POST':
+        #~blog_slug = request.form['slug']
+        #~blog_body = request.form['body']
+        #~new_blog = Blog(blog_slug, blog_body)
+        #~db.session.add(new_blog)
+        #~db.session.commit()
+        
+        
+    return render_template('newpost.html', title="New Blog Post")
+    
+@app.route('/redirect', methods=['GET','POST'])
+def new_post_redirect():
     if request.method == 'POST':
         blog_slug = request.form['slug']
         blog_body = request.form['body']
         new_blog = Blog(blog_slug, blog_body)
         db.session.add(new_blog)
         db.session.commit()
+    id = Blog.query.order_by(Blog.id.desc()).first().id
+    
+    return redirect("/blog?id="+str(id))
+    
 
-    blogs = Blog.query.all()
-    return render_template('blog.html',title="My Blog", 
-        blogs = blogs)
-#~
-#~
-#~@app.route('/delete-task', methods=['POST'])
-#~def delete_task():
-#~
-    #~task_id = int(request.form['task-id'])
-    #~task = Task.query.get(task_id)
-    #~task.completed = True
-    #~db.session.add(task)
-    #~db.session.commit()
-#~
-    #~return redirect('/')
-#~
+@app.route('/blog', methods = ['POST','GET'])
+def index():
+
+    if request.args.get('id') != None:
+        id = request.args.get('id')
+        entry = Blog.query.filter(Blog.id==id).one()
+  
+        return render_template('blog-post.html', entry = entry)
+    
+    else:
+        blogs = Blog.query.all()
+        return render_template('blog.html',title="My Blog", 
+            blogs = blogs)
+        
+#~@app.route('/blog', methods=['GET'])
+#~def get_entry():
+    #~id = request.args.get('id')
+    #~entry = Blog.query.filter(Blog.id==id).one()
+    #~print(entry)
+    #~return render_template('blog-post.html', entry = entry)
+
+
+
 
 if __name__ == '__main__':
     app.run()
