@@ -56,8 +56,5 @@ def index():
 def get_start():
     return redirect('/blog')
 
-
-
-
 if __name__ == '__main__':
     app.run()
